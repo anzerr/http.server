@@ -10,8 +10,8 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-        "mime.util": "git+ssh://git@github.com:anzerr/mime.util.git"
-    },
+		"mime.util": "git+ssh://git@github.com:anzerr/mime.util.git"
+	},
 	"devDependencies": {
 		"eslint": "^5.10.0",
 		"eslint-config-basic": "git+ssh://git@github.com/anzerr/eslintrc.git"
