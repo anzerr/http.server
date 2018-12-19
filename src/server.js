@@ -21,7 +21,7 @@ class Server {
 		});
 	}
 
-	stop() {
+	close() {
 		let wait = [];
 		for (let i in this.handle) {
 			((h) => {
