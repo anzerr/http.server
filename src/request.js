@@ -1,4 +1,15 @@
 
+const url = require('url'),
+	querystring = require('querystring');
+
+const copy = (a) => {
+	let o = {};
+	for (let i in a) {
+		o[i] = a[i];
+	}
+	return o;
+};
+
 class Request {
 
 	constructor(req) {
@@ -39,13 +50,33 @@ class Request {
 		return this._req;
 	}
 
+	query() {
+		return url.parse(this._req.url).query;
+	}
+
 	data() {
 		return new Promise((resolve) => {
 			let body = [];
 			this._req.on('data', (data) => {
 				body.push(data);
 			}).on('end', () => {
-				resolve(Buffer.concat(body));
+				let buff = Buffer.concat(body);
+				let content = this.headers('content-type') || '';
+				if (content.match('json')) {
+					try {
+						return resolve(copy(JSON.parse(buff.toString())));
+					} catch(e) {
+						return resolve(buff);
+					}
+				}
+				if (content.match('application/x-www-form-urlencoded')) {
+					try {
+						return resolve(copy(querystring.parse(buff.toString())) || buff);
+					} catch(e) {
+						return resolve(buff);
+					}
+				}
+				return resolve(buff);
 			});
 		});
 	}
