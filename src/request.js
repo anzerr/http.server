@@ -1,14 +1,7 @@
 
 const url = require('url'),
+	copy = require('clone.util'),
 	querystring = require('querystring');
-
-const copy = (a) => {
-	let o = {};
-	for (let i in a) {
-		o[i] = a[i];
-	}
-	return o;
-};
 
 class Request {
 
