@@ -4,7 +4,7 @@ Simple http server interface
 
 #### `Install`
 ``` bash
-npm install --save git+http://git@github.com/anzerr/http.server.git
+npm install --save git+https://git@github.com/anzerr/http.server.git
 ```
 
 ### `Example`
