@@ -7,6 +7,11 @@ class Request {
 
 	constructor(req) {
 		this._req = req;
+		let o = {};
+		for (let i in this._req.headers) {
+			o[i.toLowerCase()] = this._req.headers[i];
+		}
+		this._req.headers = o;
 	}
 
 	url() {
@@ -20,7 +25,7 @@ class Request {
 
 	headers(key) {
 		if (key) {
-			return this._req.headers[key];
+			return this._req.headers[key.toLowerCase()];
 		}
 		return this._req.headers;
 	}
