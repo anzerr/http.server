@@ -1,14 +1,25 @@
 {
 	"name": "http.server",
 	"version": "1.0.0",
-	"description": "",
+	"keywords": [],
+	"homepage": "https://github.com/anzerr/http.server#readme",
+	"bugs": {
+		"url": "https://github.com/anzerr/http.server/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/anzerr/http.server.git"
+	},
+	"license": "ISC",
+	"author": "anzerr",
 	"main": "index.js",
+	"types": "index.d.ts",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"keywords": [],
-	"author": "anzerr",
-	"license": "ISC",
+	"eslintConfig": {
+		"extends": "eslint-config-basic"
+	},
 	"dependencies": {
 		"mime.util": "git+https://git@github.com/anzerr/mime.util.git",
 		"clone.util": "git+https://git@github.com/anzerr/clone.util.git"
@@ -17,19 +28,7 @@
 		"eslint": "^5.10.0",
 		"eslint-config-basic": "git+https://git@github.com/anzerr/eslintrc.git"
 	},
-	"eslintConfig": {
-		"extends": "eslint-config-basic"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/anzerr/http.server.git"
-	},
 	"engines": {
 		"node": ">= 0.10.0"
-	},
-	"types": "index.d.ts",
-	"bugs": {
-		"url": "https://github.com/anzerr/http.server/issues"
-	},
-	"homepage": "https://github.com/anzerr/http.server#readme"
+	}
 }
