@@ -1,7 +1,22 @@
 
 const {Server} = require('./index.js'),
 	querystring = require('querystring'),
+	assert = require('assert'),
 	http = require('http');
+
+(() => {
+	let a = new Server(3670);
+	let b = new Server('http://localhost:3670');
+	let c = new Server('localhost:3670');
+	assert.equal(a.port, b.port);
+	assert.equal(b.port, c.port);
+
+	assert.equal(a.uri.host, b.uri.host);
+	assert.equal(b.uri.host, c.uri.host);
+
+	assert.equal(a.uri.href, b.uri.href);
+	assert.equal(b.uri.href, c.uri.href);
+})();
 
 let s = new Server(3670);
 s.create((req, res) => {

@@ -1,12 +1,19 @@
 
 const http = require('http'),
+	url = require('url'),
 	Response = require('./response.js'),
 	Request = require('./request.js');
 
 class Server {
 
 	constructor(port) {
-		this.port = Number(port);
+		if (typeof port === 'number' && !Number.isNaN(port)) {
+			this.uri = url.parse(`http://localhost:${port}`);
+			this.port = Number(port);
+		} else {
+			this.uri = url.parse((port.match(/^.*?:\/\//)) ? port : 'http://' + port);
+			this.port = this.uri.port;
+		}
 		this.handle = [];
 	}
 
