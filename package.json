@@ -1,6 +1,6 @@
 {
 	"name": "http.server",
-	"version": "1.0.4",
+	"version": "1.0.7",
 	"keywords": [],
 	"homepage": "https://github.com/anzerr/http.server#readme",
 	"bugs": {
@@ -25,7 +25,6 @@
 		"clone.util": "git+https://git@github.com/anzerr/clone.util.git"
 	},
 	"devDependencies": {
-		"eslint": "5.11.1",
 		"eslint-config-basic": "git+https://git@github.com/anzerr/eslintrc.git"
 	},
 	"engines": {
