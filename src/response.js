@@ -51,11 +51,10 @@ class Response {
 		return this._head[field];
 	}
 
-	json(body) {
-		let json = JSON.stringify(body, null, '\t');
+	json(body, format = false) {
+		let json = format? JSON.stringify(body, null, '\t') : JSON.stringify(body);
 		return (this.set({
-			'Content-Type': mime.lookup('json'),
-			'Content-Length': Buffer.byteLength(json)
+			'Content-Type': mime.lookup('json')
 		}).send(json || ''));
 	}
 
