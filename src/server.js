@@ -20,7 +20,7 @@ class Server {
 	create(cd) {
 		return new Promise((resolve) => {
 			let server = http.createServer((req, res) => {
-				return cd(new Request(req), new Response(res));
+				return cd(new Request(req), new Response(res, req));
 			}).listen(this.port, () => {
 				resolve(server);
 			});

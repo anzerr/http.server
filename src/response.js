@@ -3,7 +3,7 @@ const mime = require('mime.util');
 
 class Response {
 
-	constructor(res) {
+	constructor(res, req) {
 		this._res = res;
 
 		this.headersSent = false;
@@ -11,7 +11,7 @@ class Response {
 		this._head = {};
 		this.set({
 			'Content-Type': 'text/plain',
-			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Origin': req.headers.origin || '*',
 			'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
 			'Access-Control-Allow-Headers': 'Cache-Control, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
 		});
