@@ -1,5 +1,7 @@
 
 ### `Intro`
+![GitHub Actions status | publish](https://github.com/anzerr/http.server/workflows/publish/badge.svg)
+
 Simple http server interface
 
 #### `Install`

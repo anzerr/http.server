@@ -62,9 +62,13 @@ let query = () => {
 	});
 };
 
-let run = () => {
+let run = (i) => {
+	if (i > 10) {
+		s.close();
+		return;
+	}
 	query().then(() => {
-		setTimeout(() => run(), 2000);
+		setTimeout(() => run(i + 1), 100);
 	});
 };
-run();
+run(0);

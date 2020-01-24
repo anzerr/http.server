@@ -1,6 +1,7 @@
 {
 	"name": "http.server",
 	"version": "1.0.11",
+	"description": "Simple http server",
 	"keywords": [],
 	"homepage": "https://github.com/anzerr/http.server#readme",
 	"bugs": {
@@ -15,7 +16,7 @@
 	"main": "index.js",
 	"types": "index.d.ts",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "node example.js"
 	},
 	"eslintConfig": {
 		"extends": "eslint-config-basic"
