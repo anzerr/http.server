@@ -2,7 +2,12 @@
 	"name": "http.server",
 	"version": "1.0.12",
 	"description": "Simple http server",
-	"keywords": [],
+	"keywords": [
+		"http",
+		"nodejs",
+		"server",
+		"util"
+	],
 	"homepage": "https://github.com/anzerr/http.server#readme",
 	"bugs": {
 		"url": "https://github.com/anzerr/http.server/issues"
