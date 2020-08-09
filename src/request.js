@@ -12,6 +12,12 @@ class Request {
 			o[i.toLowerCase()] = this._req.headers[i];
 		}
 		this._req.headers = o;
+		const h = this.headers('X-Forwarded-For');
+		try {
+			this._ip = (h && typeof h === 'string') ? h.match(/(.*?)(\,\s|$)/)[1] : this._req.connection.remoteAddress;
+		} catch (e) {
+			this._ip = this._req.connection.remoteAddress;
+		}
 	}
 
 	url() {
@@ -39,9 +45,7 @@ class Request {
 	}
 
 	remote() {
-		return {
-			ip: this._req.connection.remoteAddress
-		};
+		return {ip: this._ip};
 	}
 
 	req() {
