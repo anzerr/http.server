@@ -1,6 +1,6 @@
 {
 	"name": "http.server",
-	"version": "1.0.16",
+	"version": "1.0.17",
 	"description": "Simple http server",
 	"keywords": [
 		"http",
