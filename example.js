@@ -1,6 +1,7 @@
 
 const {Server} = require('./index.js'),
 	querystring = require('querystring'),
+	fs = require('fs'),
 	assert = require('assert'),
 	http = require('http');
 
@@ -21,9 +22,16 @@ const {Server} = require('./index.js'),
 let s = new Server(3670);
 s.create((req, res) => {
 	console.log('req meta', req.method(), req.url(), req.origin(), req.remote(), req.query());
+	res.on('end', (res) => {
+		console.log('end', res);
+	})
 	req.data().then((data) => {
 		console.log('req data', data);
-		res.status(200).send(':)');
+		if (data && data.stream) {
+			res.pipe(fs.createReadStream('./package.json'));
+		} else {
+			res.status(200).send(':)');
+		}
 	});
 }).then(() => {
 	console.log('started server');
@@ -33,13 +41,15 @@ const data = [
 	querystring.stringify({query: 'SELECT name FROM user WHERE uid = me()', well: 'hello'}),
 	JSON.stringify({this: 'cat', can: 'go', over: 'the', wall: ':)'}),
 	'wrong',
-	'wrong'
+	'wrong',
+	JSON.stringify({this: 'cat', stream: true}),
 ];
 const header = [
 	{'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': Buffer.byteLength(data[0])},
 	{'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data[1])},
 	{'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': Buffer.byteLength(data[2])},
 	{'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data[3])},
+	{'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data[4])}
 ];
 
 let i = 0;
@@ -53,7 +63,9 @@ let query = () => {
 			headers: header[i % header.length]
 		}, (res) => {
 			i += 1;
-			res.on('data', () => {}).on('end', () => {
+			const out = []
+			res.on('data', (res) => out.push(res)).on('end', () => {
+				console.log('out', Buffer.concat(out));
 				resolve();
 			});
 		}).on('error', () => resolve());

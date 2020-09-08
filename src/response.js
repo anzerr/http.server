@@ -1,9 +1,13 @@
 
-const mime = require('mime.util');
+const mime = require('mime.util'),
+	events = require('events');
 
-class Response {
+let cid = 0;
+
+class Response extends events {
 
 	constructor(res, req) {
+		super();
 		this._res = res;
 
 		this.headersSent = false;
@@ -15,6 +19,8 @@ class Response {
 			'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
 			'Access-Control-Allow-Headers': 'Cache-Control, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
 		});
+		this._cid = (cid = (cid + 1) % Number.MAX_SAFE_INTEGER);
+		this._start = process.hrtime();
 	}
 
 	append(field, value) {
@@ -43,7 +49,10 @@ class Response {
 	}
 
 	end(data, encoding) {
-		this._res.end(data, encoding);
+		this._res.end(data, encoding, () => {
+			const end = process.hrtime(this._start);
+			this.emit('end', {stream: false, cid: this._cid, ms: ((end[0] * 1e9 + end[1]) / 1e6)});
+		});
 		return this;
 	}
 
@@ -73,7 +82,10 @@ class Response {
 	pipe(stream) {
 		this.headersSent = true;
 		this._res.writeHead(this._status, this._head);
-		stream.pipe(this._res);
+		stream.pipe(this._res).on('finish', () => {
+			const end = process.hrtime(this._start);
+			this.emit('end', {stream: true, cid: this._cid, ms: ((end[0] * 1e9 + end[1]) / 1e6)});
+		});
 		return this;
 	}
 
