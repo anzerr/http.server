@@ -84,8 +84,8 @@ class Response extends events {
 	}
 
 	pipe(stream) {
-		if (!Buffer.isBuffer(body)) {
-			throw new Error(`pipe input is not a buffer is type "${typeof body}"`);
+		if (!Buffer.isBuffer(stream)) {
+			throw new Error(`pipe input is not a buffer is type "${typeof stream}"`);
 		}
 		this._res.writeHead(this._status, this._head);
 		this.headersSent = true;
